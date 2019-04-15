@@ -8,4 +8,5 @@
 		$query = "DELETE FROM search WHERE query='$search'";
 		mysqli_query($link, $query) or die ("Ошибка удаления!\n" . mysqli_error($link));
 	}
+	
 ?>

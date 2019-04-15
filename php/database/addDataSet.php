@@ -14,12 +14,13 @@
 			$title = $v['title'];
 			$published = new DateTime($v['published_at']);
 			$published = $published->format('Y-m-d');
-			$img = "https://" . $v['thumbnail'];
+			$img = $v['thumbnail'];
 
 			$query = "INSERT INTO search VALUES 
-				(NULL, '$search', '$date', '$id', '$title', '$published', '$img')"
+				(NULL, '$search', '$date', '$id', '$title', '$published', '$img')";
 			
 			mysqli_query($link, $query) or die("Ошибка вставки!\n" . mysqli_error($link));
 		}
 	}
+	
 ?>

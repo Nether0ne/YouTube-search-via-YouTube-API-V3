@@ -53,11 +53,13 @@ class YouTubeVideo
 			$dataset[] = [
 				'id' => $value->toSimpleObject()->id->videoId,
 				'title' => $value->toSimpleObject()->snippet->title,
-				'thumbnail' => $value->toSimpleObject()->snippet->thumbnails->medium->url,
+				'thumbnail' => $value->toSimpleObject()->snippet->thumbnails->default->url,
 				'published_at' => substr($value->toSimpleObject()->snippet->publishedAt, 0, -14)
 			];
-    });
+        });
 
-    return $dataset;
+        return $dataset;
+    }
 }
-}
+
+?>

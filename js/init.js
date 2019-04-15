@@ -39,7 +39,7 @@ $(document).ready(() => {
 			var html = '';
 
 			$.ajax({
-				url : '/php/get-video.php',
+				url : '/php/getVideo.php',
 				data : {'search' : searchQuery},
 				dataType : 'json',
 				

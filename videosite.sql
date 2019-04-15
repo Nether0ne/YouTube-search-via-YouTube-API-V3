@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 15 2019 г., 19:55
+-- Время создания: Апр 16 2019 г., 00:57
 -- Версия сервера: 5.7.20
 -- Версия PHP: 7.2.0
 
@@ -52,7 +52,32 @@ INSERT INTO `search` (`id`, `query`, `date`, `videoid`, `title`, `published`, `i
 (32, 'avenged sevenfold', '2019-04-15', 'DelhLppPSxY', 'Avenged Sevenfold - Hail To The King [Official Music Video]', '2013-08-16', 'https://https://i.ytimg.com/vi/DelhLppPSxY/default.jpg'),
 (33, 'avenged sevenfold', '2019-04-15', 'HIRNdveLnJI', 'Avenged Sevenfold - Afterlife (Official Music Video)', '2008-03-12', 'https://https://i.ytimg.com/vi/HIRNdveLnJI/default.jpg'),
 (34, 'avenged sevenfold', '2019-04-15', 'fBYVlFXsEME', 'Avenged Sevenfold - The Stage', '2016-10-13', 'https://https://i.ytimg.com/vi/fBYVlFXsEME/default.jpg'),
-(35, 'avenged sevenfold', '2019-04-15', 'KVjBCT2Lc94', 'Avenged Sevenfold - A Little Piece Of Heaven (Video)', '2009-10-27', 'https://https://i.ytimg.com/vi/KVjBCT2Lc94/default.jpg');
+(35, 'avenged sevenfold', '2019-04-15', 'KVjBCT2Lc94', 'Avenged Sevenfold - A Little Piece Of Heaven (Video)', '2009-10-27', 'https://https://i.ytimg.com/vi/KVjBCT2Lc94/default.jpg'),
+(36, 'muse', '2019-04-15', 'w8KQmps-Sog', 'Muse - Uprising [Official Video]', '2009-10-09', 'https://i.ytimg.com/vi/w8KQmps-Sog/default.jpg'),
+(37, 'muse', '2019-04-15', 'X8f5RgwY8CI', 'MUSE - Algorithm [Official Music Video]', '2018-11-09', 'https://i.ytimg.com/vi/X8f5RgwY8CI/default.jpg'),
+(38, 'muse', '2019-04-15', 'UqLRqzTp6Rk', 'Muse - Psycho [Official Lyric Video]', '2015-03-12', 'https://i.ytimg.com/vi/UqLRqzTp6Rk/default.jpg'),
+(39, 'muse', '2019-04-15', 'h2eKImKZviw', 'MUSE - Pressure [Official Music Video]', '2018-09-27', 'https://i.ytimg.com/vi/h2eKImKZviw/default.jpg'),
+(40, 'muse', '2019-04-15', 'TPE9uSFFxrI', 'Muse - Resistance', '2010-02-10', 'https://i.ytimg.com/vi/TPE9uSFFxrI/default.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `login` text NOT NULL,
+  `password` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `user`
+--
+
+INSERT INTO `user` (`id`, `login`, `password`) VALUES
+(1, 'admin', 'admin'),
+(3, 'user123', 'mypass');
 
 --
 -- Индексы сохранённых таблиц
@@ -65,6 +90,12 @@ ALTER TABLE `search`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
@@ -72,7 +103,13 @@ ALTER TABLE `search`
 -- AUTO_INCREMENT для таблицы `search`
 --
 ALTER TABLE `search`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id запроса', AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id запроса', AUTO_INCREMENT=41;
+
+--
+-- AUTO_INCREMENT для таблицы `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
