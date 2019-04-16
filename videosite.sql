@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 16 2019 г., 00:57
+-- Время создания: Апр 16 2019 г., 17:25
 -- Версия сервера: 5.7.20
 -- Версия PHP: 7.2.0
 
@@ -48,11 +48,11 @@ INSERT INTO `search` (`id`, `query`, `date`, `videoid`, `title`, `published`, `i
 (3, 'queen', '2019-04-15', 'fJ9rUzIMcZQ', 'Queen - Bohemian Rhapsody (Official Video)', '2008-08-01', 'https://i.ytimg.com/vi/fJ9rUzIMcZQ/default.jpg'),
 (4, 'queen', '2019-04-15', 't99KH0TR-J4', 'Queen - The Show Must Go On (Official Video)', '2013-10-15', 'https://i.ytimg.com/vi/t99KH0TR-J4/default.jpg'),
 (5, 'queen', '2019-04-15', '_Uu12zY01ts', 'Queen - Greatest Hits (1) [1 hour long]', '2015-12-14', 'https://i.ytimg.com/vi/_Uu12zY01ts/default.jpg'),
-(31, 'avenged sevenfold', '2019-04-15', 'XptslJml1do', 'AVENGED SEVENFOLD - Nightmare', '2010-08-05', 'https://https://i.ytimg.com/vi/XptslJml1do/default.jpg'),
-(32, 'avenged sevenfold', '2019-04-15', 'DelhLppPSxY', 'Avenged Sevenfold - Hail To The King [Official Music Video]', '2013-08-16', 'https://https://i.ytimg.com/vi/DelhLppPSxY/default.jpg'),
-(33, 'avenged sevenfold', '2019-04-15', 'HIRNdveLnJI', 'Avenged Sevenfold - Afterlife (Official Music Video)', '2008-03-12', 'https://https://i.ytimg.com/vi/HIRNdveLnJI/default.jpg'),
-(34, 'avenged sevenfold', '2019-04-15', 'fBYVlFXsEME', 'Avenged Sevenfold - The Stage', '2016-10-13', 'https://https://i.ytimg.com/vi/fBYVlFXsEME/default.jpg'),
-(35, 'avenged sevenfold', '2019-04-15', 'KVjBCT2Lc94', 'Avenged Sevenfold - A Little Piece Of Heaven (Video)', '2009-10-27', 'https://https://i.ytimg.com/vi/KVjBCT2Lc94/default.jpg'),
+(31, 'avenged sevenfold', '2019-04-15', 'XptslJml1do', 'AVENGED SEVENFOLD - Nightmare', '2010-08-05', 'https://i.ytimg.com/vi/XptslJml1do/default.jpg'),
+(32, 'avenged sevenfold', '2019-04-15', 'DelhLppPSxY', 'Avenged Sevenfold - Hail To The King [Official Music Video]', '2013-08-16', 'https://i.ytimg.com/vi/DelhLppPSxY/default.jpg'),
+(33, 'avenged sevenfold', '2019-04-15', 'HIRNdveLnJI', 'Avenged Sevenfold - Afterlife (Official Music Video)', '2008-03-12', 'https://i.ytimg.com/vi/HIRNdveLnJI/default.jpg'),
+(34, 'avenged sevenfold', '2019-04-15', 'fBYVlFXsEME', 'Avenged Sevenfold - The Stage', '2016-10-13', 'https://i.ytimg.com/vi/fBYVlFXsEME/default.jpg'),
+(35, 'avenged sevenfold', '2019-04-15', 'KVjBCT2Lc94', 'Avenged Sevenfold - A Little Piece Of Heaven (Video)', '2009-10-27', 'https://i.ytimg.com/vi/KVjBCT2Lc94/default.jpg'),
 (36, 'muse', '2019-04-15', 'w8KQmps-Sog', 'Muse - Uprising [Official Video]', '2009-10-09', 'https://i.ytimg.com/vi/w8KQmps-Sog/default.jpg'),
 (37, 'muse', '2019-04-15', 'X8f5RgwY8CI', 'MUSE - Algorithm [Official Music Video]', '2018-11-09', 'https://i.ytimg.com/vi/X8f5RgwY8CI/default.jpg'),
 (38, 'muse', '2019-04-15', 'UqLRqzTp6Rk', 'Muse - Psycho [Official Lyric Video]', '2015-03-12', 'https://i.ytimg.com/vi/UqLRqzTp6Rk/default.jpg'),
