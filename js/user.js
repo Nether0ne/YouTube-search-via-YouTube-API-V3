@@ -37,8 +37,6 @@ $(document).ready(() => {
 			data : {'login' : login, 'password' : password},
 
 			success: function(data) {
-				alert(data);
-
 				setTimeout(function() {
 					location.reload();
 				}, 1000);
@@ -57,12 +55,10 @@ $(document).ready(() => {
 		var password = $('.pass-reg').val();
 
 		$.ajax({
-			url : '/php/user/reg.php',
+			url : '/php/user/register.php',
 			data : {'login' : login, 'password' : password},
 
 			success: function(data) {
-				alert($data);
-
 				setTimeout(function() {
 					location.reload();
 				}, 1000);
@@ -86,6 +82,62 @@ $(document).ready(() => {
 
 			error : function(xhr) {
 				alert(xhr['responseText']);
+			}
+		});
+	});
+
+	// Обработчик нажатия кнопки like
+	$('.videos').on('click', '.like', function () {
+		event.stopPropagation();
+    	event.stopImmediatePropagation();
+		var link = $(this);
+		var id = link.attr('id');
+
+		$.ajax({
+			url : "/php/user/addFavorite.php",
+			data : {'id' : id},
+
+			success : function(data) {
+				if (data) {
+					// Если добавили в лайкнутые
+					link.removeClass('like').addClass('dislike');
+					alert("Вы добавили это видео в понравившиеся!");
+				}
+				else {
+					// Если пользователь не авторизован
+					alert("Для использования этой функции вы должны быть авторизованы!");
+				}
+			},
+
+			error: function(xhr) {
+				console.log(xhr['responseText']);
+			}
+		});
+	});
+
+	// Обработчик нажатия кнопки dislike
+	$('.videos').on('click', '.dislike', function () {
+		var link = $(this);
+		var id = link.attr('id');
+
+		$.ajax({
+			url : "/php/user/removeFavorite.php",
+			data : {'id' : id},
+
+			success : function(data) {
+				if (data) {
+					// Если убрали из лайкнутых
+					link.removeClass('dislike').addClass('like');
+					alert("Вы удалили это видео из понравившихся!");
+				}
+				else {
+					// Если пользователь не авторизован
+					alert("Для использования этой функции вы должны быть авторизованы!");
+				}
+			},
+
+			error: function(xhr) {
+				console.log(xhr['responseText']);
 			}
 		});
 	});

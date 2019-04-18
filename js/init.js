@@ -1,6 +1,7 @@
 $(document).ready(() => { 
 	$(function() {
 
+		// Обработчик автозаполнения поля search
 		$('.search-input').keyup(function() {
 			var val = $(this).val();
 
@@ -17,13 +18,14 @@ $(document).ready(() => {
 			});
 		});
 		
-		
+		// Обработчик кнопки "Search"
 		$('.btn-submit').click(function() {
 			show_videos();
 			$('.autocomplete').fadeOut(500);
 			return false;
 		});
 		
+		// Обработчик нажатия результата автозаполнения
 		$('.autocomplete').on('click', 'a', function() {
 			var text = $(this).text();
 			$('.search-input').val(text);
@@ -32,6 +34,7 @@ $(document).ready(() => {
 			return false;
 		});
 		
+		// Функция запроса видео
 		function show_videos() {
 			var searchQuery = $('.search-input').val();
 			$('.videos').addClass('preloader').html('');
@@ -54,6 +57,9 @@ $(document).ready(() => {
 						html += '</a></p>'
 						html += '<p class="entry"><a href="http://www.youtube.com/watch?v='+ video['id'] +'">' + video['title'] + '</a>';
 						html += '<small>Published at ' + video['published_at'] + '</small>';
+						html += '<a href="#" class="' 
+						html += video['liked'] ? 'dislike' : 'like';
+						html += '" id="' + video['id'] + '">Add to favorites</a>';
 						html += '</p>';
 						html += '</li>';
 					}
@@ -62,7 +68,6 @@ $(document).ready(() => {
 				},
 				// При неудачном запросе
 				error: function(xhr) {
-					console.log("Ошибка при запросе!")
 					console.log(xhr['responseText']);
 					html += "Ошибка при запросе! Попробуйте позже";
 

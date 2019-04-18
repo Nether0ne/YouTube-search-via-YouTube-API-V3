@@ -1,6 +1,7 @@
 <?php
 
 require_once('vendor/autoload.php');
+require_once('User.php');
 
 class YouTubeVideo
 {
@@ -48,13 +49,18 @@ class YouTubeVideo
 	*/
 	public function getDataVideo(array $videos) {
 		$dataset = [];
-		array_walk($videos, function ($value) use (&$dataset) {
+        $user = new User();
 
+		array_walk($videos, function ($value) use (&$dataset) {
+            $id = $value->toSimpleObject()->id->videoId;
 			$dataset[] = [
-				'id' => $value->toSimpleObject()->id->videoId,
+				'id' => $id,
 				'title' => $value->toSimpleObject()->snippet->title,
 				'thumbnail' => $value->toSimpleObject()->snippet->thumbnails->default->url,
 				'published_at' => substr($value->toSimpleObject()->snippet->publishedAt, 0, -14)
+                /* Пока не работает ($id в данном случае NULL -> $user0>isLiked не работает)
+                ,
+                'liked' => $user->isLiked($id)*/
 			];
         });
 

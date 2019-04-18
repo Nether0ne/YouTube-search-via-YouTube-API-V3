@@ -166,7 +166,15 @@ ul.videos li p {
 .videos .entry small {
 	display: block;
 	font-weight: normal;
-	color: #ACACAC;
+	color: #000;
+}
+
+.videos .entry .like {
+
+}
+
+.videos .entry .dislike {
+	color: #0c0
 }
 
 a {

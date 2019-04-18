@@ -8,13 +8,15 @@
 
 		// Если запрос вернул не 0 строк
 		if (mysqli_num_rows($result)) {
+			$user = new User();
 			while ($data = mysqli_fetch_array($result)) {
 
 				$dataset[] = [
 					'id' => $data['videoid'],
 					'title' => $data['title'],
 					'published_at' => $data['published'],
-					'thumbnail' => $data['img']
+					'thumbnail' => $data['img'],
+					'liked' => $user->isLiked($data['videoid'])
 				];
 			}
 		}

@@ -1,7 +1,6 @@
 <?php
-	require_once('vendor/autoload.php');
 	require_once('classes/YouTubeVideo.php');
-	require_once('database/check.php');
+	require_once('database/search.php');
 	require_once('database/addDataSet.php');
 	
 	$search_request = $_GET['search'];
