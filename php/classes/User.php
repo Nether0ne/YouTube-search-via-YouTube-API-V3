@@ -1,20 +1,23 @@
 <?php
 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/php/database/connect.php");
+require_once("DataBase.php");
 
 class User {
 
+	private $db;
+
 	// Конструктор по умолчанию
 	public function __construct() {
-		session_start();
+		// Подключение к БД
+		$this->db = DataBase::getDataBase();
 	}
 
 	// Функция проверки текущей сессии
 	public function checkSession() {
+		session_start();
 		if (empty($_SESSION['login']) or empty($_SESSION['password'])) {
 			return NULL;
 		}
-
 		return $_SESSION['login'];
 	}
 
@@ -32,42 +35,32 @@ class User {
 		// Если логин или пароль пустые - сообщаем об этом пользователю
 		if (empty($login) or empty($password)) {
 			header('HTTP/1.1 400 Bad Request');
-			die("Вы ввели не всю информацию!\nЗаполните все поля и попробуйте снова!");
+			die("You have not entered all the information!\nFill in all fields and try again!");
 		}
 
-		// Очищаем поступающие данные от лишних символов
-		$login = $this->editInput($login);
-		$password = $this->editInput($password);
-
-		// Подключение к базе данных
-		$link = connect();
-
-		$query = "SELECT * FROM user WHERE login='$login'";
+		$query = "SELECT * FROM user WHERE login={?}";
 
 		// Осуществляем запрос на нахождение нужного пользователя
-		$result = mysqli_query($link, $query) 
-			or die("Ошибка нахождения пользователя!\n" . mysqli_error($link));
+		$result = $this->db->select($query, array($login));
 
-		// Если данный пользователь не был найден в базе данных
-		if (mysqli_num_rows($result) == 0) {
-			header('HTTP/1.1 400 Bad Request');
-			die("Пользователь с данным логином не зарегестрирован");
-		}
-		else {
-			$data = mysqli_fetch_array($result);
-
+		// Если данный пользователь был найден в базе данных
+		if ($result) {
 			// Проверяем сходятся ли пароли
-			if ($data['password'] == $password) {
-				$_SESSION['password'] = $data['password'];
-				$_SESSION['login'] = $data['login'];
-				$_SESSION['id'] = $data['id'];
+			if ($result[0]['password'] == $password) {
+				$_SESSION['id'] = $result[0]['id'];
+				$_SESSION['login'] = $result[0]['login'];
+				$_SESSION['password'] = $result[0]['password'];
 
-				return "Добро пожаловать, $login";
+				return "Welcome , $login";
 			}
 			else {
 				header('HTTP/1.1 400 Bad Request');
-				die("Был введен неправильный пароль!\nПроверьте правильность ввода и попробуйте снова!");
+				die("Incorrect password!\nCheck your input and try again!");
 			}
+		}
+		else {
+			header('HTTP/1.1 400 Bad Request');
+			die("User with this login is not registered");
 		}
 	}
 
@@ -83,53 +76,45 @@ class User {
 		// Если логин или пароль пустые - сообщаем об этом пользователю
 		if (empty($login) or empty($password)) {
 			header('HTTP/1.1 400 Bad Request');
-			die("Вы ввели не всю информацию!\nЗаполните все поля и попробуйте снова!");
+			die("You have not entered all the information!\nFill in all fields and try again!");
 		}
 
-		// Очищаем поступающие данные от лишних символов
-		$login = $this->editInput($login);
-		$password = $this->editInput($password);
-
-		// Подключение к базе данных
-		$link = connect();
-
-		$query = "SELECT id FROM user WHERE login='$login'";
+		$query = "SELECT login FROM user WHERE login={?}";
 
 		// Осуществляем запрос на нахождение нужного пользователя
-		$result = mysqli_query($link, $query) 
-			or die ("Ошибка проверки наличия пользователя!\n" . mysqli_error($link));
+		$result = $this->db->select($query, array($login));
 
 		// Если данное имя уже зарегестрировано
-		if (mysqli_num_rows($result) != 0) {
+		if ($result) {
 			header('HTTP/1.1 400 Bad Request');
-			die("Введенное вами имя пользователя уже занято!");
+			die("User with this login is already registered");
 		}	
 
 		// Если данное имя свободно - продолжаем процесс регистрации
-		$query = "INSERT INTO user VALUES (NULL, '$login', '$password')";
-		$result = mysqli_query($link, $query)
-			or die ("Ошибка внесения пользователя в базу данных!\n" . mysqli_error($link));
+		$query = "INSERT INTO user VALUES (NULL, {?}, {?})";
+		$result = $this->db->query($query, array($login, $password))
+			or die ("Ошибка внесения пользователя в базу данных!\n" . $this->$db->error);
 
 		$query = "CREATE TABLE " . $login ."_liked (id INT AUTO_INCREMENT, videoid TEXT, PRIMARY KEY (id))";
-		mysqli_query($link, $query);
+		$this->db->query($query);
 		// Сообщаем пользователю о результате регистрации
 		if ($result) {
-			return "Вы успешно зарегестрированы!";
+			return "You are successfully registered!";
 		}
 		else {
 			header('HTTP/1.1 400 Bad Request');
-			die("Произошла ошибка при регистрации, попробуйте зарегестрироваться позже!");
+			die("An error occured during registration!\nTry again later!");
 		}
 	}
 
 	// Функция выхода пользователя
 	public function logout() {
-		if (empty($_SESSION['login']) or empty($_SESSION['password'])) {
+		if ($this->checkSession()) 
+			session_destroy();
+		else {
 			header('HTTP/1.1 400 Bad Request');
-			die("Доступ на эту страницу доступен только авторизированым пользователям!");
+			die("This page is available only for authorized users!");
 		}
-
-		session_destroy();
 	}
 
 	// Функция добавления лайка
@@ -137,20 +122,14 @@ class User {
 		$username = $this->checkSession();
 
 		// Если пользователь не авторизован - выходим из функции
-		if (empty($username)) {
+		if (empty($username))
 			return NULL;
-		}
 
-		// Подключение к базе данных
-		$link = connect();
-		$query = "INSERT INTO " . $username . "_liked VALUES (NULL, '$id')";
-		// Осуществление запроса на добавление
-		$result = mysqli_query($link, $query) or die("Ошибка добавления в понравившиеся видео");
+		$query = "INSERT INTO " . $username . "_liked VALUES (NULL, {?})";
 
-		if ($result)
-			return true;
-		
-		return false;
+		// Осуществление запроса на добавление и возвращение результата
+		return $this->db->select($query, array($id)) 
+			or die("Error! This video was not added to your favorites!\nTry again!");
 	}
 
 	// Функция удаления лайка
@@ -158,20 +137,13 @@ class User {
 		$username = $this->checkSession();
 
 		// Если пользователь не авторизован - выходим из функции
-		if (empty($username)) {
+		if (empty($username)) 
 			return NULL;
-		}
 
-		// Подключение к базе данных
-		$link = connect();
-		$query = "DELETE FROM " . $username . "_liked WHERE videoid='$id'";
+		$query = "DELETE FROM " . $username . "_liked WHERE videoid={?}";
 		// Осуществление запроса на удаление
-		$result = mysqli_query($link, $query) or die("Ошибка удаления понравившиеся видео");
-
-		if ($result)
-			return true;
-		
-		return false;
+		return $this->db->query($query, array($id))
+			or die("Error! This video was not removed from your favorites\nTry again!");
 	}
 
 	// Функция проверки наличия лайка на видео
@@ -179,27 +151,13 @@ class User {
 		$username = $this->checkSession();
 
 		// Если пользователь не авторизован - выходим из функции
-		if (empty($username)) {
-			return NULL;
-		}
+		if (empty($username)) 
+			return false;
 
-		// Подключение к базе данных
-		$link = connect();
-		$query = "SELECT * FROM " . $username . "_liked WHERE videoid='$id'";
-		$result = mysqli_query($link, $query) or die("Ошибка при нахождении видео в пользовательском листе!");
-		if (mysqli_num_rows($result) != 0)
-			return true;
-
-		return false;
-	}
-
-	// Функция обработки поступающих данных
-	public function editInput(string $data) {
-		$data = stripslashes($data);
-		$data = htmlspecialchars($data);
-		$data = trim($data);
-
-		return $data;
+		$query = "SELECT * FROM " . $username . "_liked WHERE videoid={?}";
+		
+		return count($this->db->select($query, array($id))) ? true : false;
 	}
 }
+
 ?>

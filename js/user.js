@@ -37,13 +37,14 @@ $(document).ready(() => {
 			data : {'login' : login, 'password' : password},
 
 			success: function(data) {
+				alert(data);
 				setTimeout(function() {
 					location.reload();
 				}, 1000);
 			},
 
 			error: function(xhr) {
-				console.log(xhr['responseText']);
+				alert(xhr['responseText']);
 			}
 		});
 	});
@@ -59,6 +60,7 @@ $(document).ready(() => {
 			data : {'login' : login, 'password' : password},
 
 			success: function(data) {
+				alert(data);
 				setTimeout(function() {
 					location.reload();
 				}, 1000);
@@ -101,11 +103,11 @@ $(document).ready(() => {
 				if (data) {
 					// Если добавили в лайкнутые
 					link.removeClass('like').addClass('dislike');
-					alert("Вы добавили это видео в понравившиеся!");
+					alert("You have added this video to your favorites!");
 				}
 				else {
 					// Если пользователь не авторизован
-					alert("Для использования этой функции вы должны быть авторизованы!");
+					alert("This feature is only avaiable for authorized users!");
 				}
 			},
 
@@ -128,11 +130,11 @@ $(document).ready(() => {
 				if (data) {
 					// Если убрали из лайкнутых
 					link.removeClass('dislike').addClass('like');
-					alert("Вы удалили это видео из понравившихся!");
+					alert("You have removed this video from your favorites!");
 				}
 				else {
 					// Если пользователь не авторизован
-					alert("Для использования этой функции вы должны быть авторизованы!");
+					alert("This feature is only avaiable for authorized users!");
 				}
 			},
 

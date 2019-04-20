@@ -37,6 +37,13 @@ $(document).ready(() => {
 		// Функция запроса видео
 		function show_videos() {
 			var searchQuery = $('.search-input').val();
+			var buffQuery = searchQuery.trim();
+			if (!buffQuery) {
+				alert('Please, fill in search field.\nTry typing in "cats", for example!');
+				$('.search-input').val('');
+				return false;
+			}
+
 			$('.videos').addClass('preloader').html('');
 			
 			var html = '';
@@ -48,7 +55,6 @@ $(document).ready(() => {
 				
 				// При успешном запросе
 				success: function(data) {
-					console.log(data);
 					for (v in data) {
 						var	video = data[v];
 						html += '<li>';
@@ -69,7 +75,7 @@ $(document).ready(() => {
 				// При неудачном запросе
 				error: function(xhr) {
 					console.log(xhr['responseText']);
-					html += "Ошибка при запросе! Попробуйте позже";
+					html += "Oopsie! Something went wrong, try again later!";
 
 					$('.videos').removeClass('preloader').html(html);
 				}

@@ -5,7 +5,6 @@
 	$password = $_GET['password'];
 
 	$user = new User();
-
 	echo $user->register($login, $password);
 
 ?>
