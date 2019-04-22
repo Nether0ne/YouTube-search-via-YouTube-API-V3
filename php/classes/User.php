@@ -10,11 +10,11 @@ class User {
 	public function __construct() {
 		// Подключение к БД
 		$this->db = DataBase::getDataBase();
+		session_start();
 	}
 
 	// Функция проверки текущей сессии
 	public function checkSession() {
-		session_start();
 		if (empty($_SESSION['login']) or empty($_SESSION['password'])) {
 			return NULL;
 		}
@@ -128,7 +128,7 @@ class User {
 		$query = "INSERT INTO " . $username . "_liked VALUES (NULL, {?})";
 
 		// Осуществление запроса на добавление и возвращение результата
-		return $this->db->select($query, array($id)) 
+		return $this->db->query($query, array($id)) 
 			or die("Error! This video was not added to your favorites!\nTry again!");
 	}
 
@@ -157,6 +157,18 @@ class User {
 		$query = "SELECT * FROM " . $username . "_liked WHERE videoid={?}";
 		
 		return count($this->db->select($query, array($id))) ? true : false;
+	}
+
+	// Функция получения лайкнутых видео пользователя
+	public function likedVideos() {
+		$username = $this->checkSession();
+
+		if (empty($username))
+			return false;
+
+		$query = "SELECT * FROM search, " . $username . "_liked WHERE search.videoid = " . $username . "_liked.videoid";
+
+		return $this->db->select($query);
 	}
 }
 

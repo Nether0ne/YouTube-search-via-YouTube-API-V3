@@ -1,0 +1,81 @@
+/* Screen < 480px */
+@media (max-width: 480px) {
+
+.wrapper {
+	width: 100%;
+	margin: 30px auto 0;
+}
+
+.input-form .search-input {
+	width: 200px;
+}
+
+.input-form {
+	padding: 10px;
+}
+
+ul.autocomplete {
+	width: 200px;
+}
+
+.user {
+	padding: 10px;
+}
+
+.reg, .login {
+	width: 100%;
+	margin-left: 0;
+}
+
+.user .btn {
+	width: auto;
+}
+
+.videos .entry {
+	font-size: 16px;
+	padding-left: 10px;
+}
+}
+
+@media (max-width: 375px) {
+	
+.input-form .search-input, ul.autocomplete {
+	width: 170px;
+}
+
+.search .input-form .btn {
+	width: auto;
+}
+
+.videos .entry {
+	font-size: 14px;
+	padding-left: 10px;
+}
+}
+
+@media (max-width: 320px) {
+.input-form {
+	padding: 5px;
+}
+
+.search .input-form {
+	padding: 5px;
+}
+
+.input-form .search-input, ul.autocomplete {
+	width: 140px;
+}
+
+.input-group {
+	width: 100%;
+}
+
+.user {
+	padding: 5px;
+	font-size: 10px;
+}
+
+.user .btn {
+	font-size: 12px;
+}
+}

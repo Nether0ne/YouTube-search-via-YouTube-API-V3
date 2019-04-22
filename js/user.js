@@ -33,8 +33,9 @@ $(document).ready(() => {
 		var password = $('.pass-login').val();
 
 		$.ajax({
-			url : '/php/user/login.php',
-			data : {'login' : login, 'password' : password},
+			url : '/php/handler.php',
+			data : { 'action' : 'login', 'login' : login, 'password' : password},
+			dataType : 'json',
 
 			success: function(data) {
 				alert(data);
@@ -56,8 +57,9 @@ $(document).ready(() => {
 		var password = $('.pass-reg').val();
 
 		$.ajax({
-			url : '/php/user/register.php',
-			data : {'login' : login, 'password' : password},
+			url : '/php/handler.php',
+			data : { 'action' : 'register', 'login' : login, 'password' : password},
+			dataType : 'json',
 
 			success: function(data) {
 				alert(data);
@@ -76,7 +78,9 @@ $(document).ready(() => {
 		event.preventDefault();
 
 		$.ajax({
-			url : '/php/user/logout.php',
+			url : '/php/handler.php',
+			data : { 'action' : 'logout' },
+			dataType : 'json',
 
 			success : function() {
 				location.reload();
@@ -96,13 +100,14 @@ $(document).ready(() => {
 		var id = link.attr('id');
 
 		$.ajax({
-			url : "/php/user/addFavorite.php",
-			data : {'id' : id},
+			url : '/php/handler.php',
+			data : { 'action' : 'addFavorite', 'id' : id},
+			dataType : 'json',
 
 			success : function(data) {
 				if (data) {
 					// Если добавили в лайкнутые
-					link.removeClass('like').addClass('dislike');
+					link.removeClass('like').addClass('dislike').text("Your favorite");
 					alert("You have added this video to your favorites!");
 				}
 				else {
@@ -123,13 +128,14 @@ $(document).ready(() => {
 		var id = link.attr('id');
 
 		$.ajax({
-			url : "/php/user/removeFavorite.php",
-			data : {'id' : id},
+			url : '/php/handler.php',
+			data : { 'action' : 'removeFavorite', 'id' : id},
+			dataType : 'json',
 
 			success : function(data) {
 				if (data) {
 					// Если убрали из лайкнутых
-					link.removeClass('dislike').addClass('like');
+					link.removeClass('dislike').addClass('like').text("Add to favorite");
 					alert("You have removed this video from your favorites!");
 				}
 				else {
@@ -146,7 +152,9 @@ $(document).ready(() => {
 });
 
 $.ajax({
-	url : '/php/user/check.php',
+	url : '/php/handler.php',
+	data : { 'action' : 'check' },
+	dataType : 'json',
 
 	success: function(data) {
 		if (data) {

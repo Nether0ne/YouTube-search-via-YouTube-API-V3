@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 20 2019 г., 22:48
+-- Время создания: Апр 22 2019 г., 17:11
 -- Версия сервера: 5.7.20
 -- Версия PHP: 7.2.0
 
@@ -39,8 +39,18 @@ CREATE TABLE `admin_liked` (
 
 INSERT INTO `admin_liked` (`id`, `videoid`) VALUES
 (1, 'ktYlzVYQbwY'),
-(2, 'f4Mc-NYPHaQ'),
-(5, '69e8oa85F3g');
+(2, 'f4Mc-NYPHaQ');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `lasttestreg_liked`
+--
+
+CREATE TABLE `lasttestreg_liked` (
+  `id` int(11) NOT NULL,
+  `videoid` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -82,7 +92,54 @@ INSERT INTO `search` (`id`, `query`, `date`, `videoid`, `title`, `published`, `i
 (17, 'queens of the stone age', '2019-04-20', 's88r_q7oufE', 'Queens Of The Stone Age - No One Knows', '2009-10-07', 'https://i.ytimg.com/vi/s88r_q7oufE/default.jpg'),
 (18, 'queens of the stone age', '2019-04-20', 'hg14Ocs03xA', 'Queens Of The Stone Age – Make It Wit Chu (Virgin Magnetic Material Remix)', '2015-03-06', 'https://i.ytimg.com/vi/hg14Ocs03xA/default.jpg'),
 (19, 'queens of the stone age', '2019-04-20', 'hGRqnNEOpe0', 'Queens Of The Stone Age - Little Sister', '2009-10-07', 'https://i.ytimg.com/vi/hGRqnNEOpe0/default.jpg'),
-(20, 'queens of the stone age', '2019-04-20', '69e8oa85F3g', 'Queens Of The Stone Age - In My Head', '2009-10-07', 'https://i.ytimg.com/vi/69e8oa85F3g/default.jpg');
+(20, 'queens of the stone age', '2019-04-20', '69e8oa85F3g', 'Queens Of The Stone Age - In My Head', '2009-10-07', 'https://i.ytimg.com/vi/69e8oa85F3g/default.jpg'),
+(21, 'system of a down', '2019-04-22', 'CSvFpBOe8eY', 'System Of A Down - Chop Suey!', '2009-10-03', 'https://i.ytimg.com/vi/CSvFpBOe8eY/default.jpg'),
+(22, 'system of a down', '2019-04-22', 'iywaBOMvYLI', 'System Of A Down - Toxicity', '2009-10-02', 'https://i.ytimg.com/vi/iywaBOMvYLI/default.jpg'),
+(23, 'system of a down', '2019-04-22', 'L-iepu3EtyE', 'System Of A Down - Aerials', '2009-10-03', 'https://i.ytimg.com/vi/L-iepu3EtyE/default.jpg'),
+(24, 'system of a down', '2019-04-22', 'zUzd9KyIDrM', 'System Of A Down - B.Y.O.B. (Video)', '2009-10-03', 'https://i.ytimg.com/vi/zUzd9KyIDrM/default.jpg'),
+(25, 'system of a down', '2019-04-22', 'DnGdoEa1tPg', 'System Of A Down - Lonely Day (Video)', '2009-10-03', 'https://i.ytimg.com/vi/DnGdoEa1tPg/default.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `testUser_liked`
+--
+
+CREATE TABLE `testUser_liked` (
+  `id` int(11) NOT NULL,
+  `videoid` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `testUser_liked`
+--
+
+INSERT INTO `testUser_liked` (`id`, `videoid`) VALUES
+(2, 'f4Mc-NYPHaQ'),
+(3, 'fJ9rUzIMcZQ'),
+(4, 't99KH0TR-J4'),
+(5, '_Uu12zY01ts'),
+(7, 'X8f5RgwY8CI'),
+(8, 'UqLRqzTp6Rk'),
+(9, 'h2eKImKZviw'),
+(10, 'QQ_3S-IQm38'),
+(11, '94bGzWyHbu0'),
+(12, 'DelhLppPSxY'),
+(13, 'fBYVlFXsEME'),
+(14, 'HIRNdveLnJI'),
+(15, 'KVjBCT2Lc94'),
+(16, 'CSvFpBOe8eY'),
+(17, 'iywaBOMvYLI'),
+(18, 'L-iepu3EtyE'),
+(19, 'zUzd9KyIDrM'),
+(20, 'DnGdoEa1tPg'),
+(21, 'DcHKOC64KnE'),
+(22, 's88r_q7oufE'),
+(23, 'hg14Ocs03xA'),
+(24, 'hGRqnNEOpe0'),
+(25, '69e8oa85F3g'),
+(26, 'ktYlzVYQbwY'),
+(28, 'w8KQmps-Sog');
 
 -- --------------------------------------------------------
 
@@ -101,7 +158,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `login`, `password`) VALUES
-(1, 'admin', 'admin');
+(1, 'admin', 'admin'),
+(2, 'testUser', '12345'),
+(3, 'lasttestreg', '1');
 
 --
 -- Индексы сохранённых таблиц
@@ -114,9 +173,21 @@ ALTER TABLE `admin_liked`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `lasttestreg_liked`
+--
+ALTER TABLE `lasttestreg_liked`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `search`
 --
 ALTER TABLE `search`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `testUser_liked`
+--
+ALTER TABLE `testUser_liked`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -136,16 +207,28 @@ ALTER TABLE `admin_liked`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT для таблицы `lasttestreg_liked`
+--
+ALTER TABLE `lasttestreg_liked`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT для таблицы `search`
 --
 ALTER TABLE `search`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id запроса', AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id запроса', AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT для таблицы `testUser_liked`
+--
+ALTER TABLE `testUser_liked`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT для таблицы `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

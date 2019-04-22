@@ -30,6 +30,7 @@ ul.reset li {
 	float: left;
 	width: 70%;
 	position: relative;
+	padding: 10px;
 }
 
 .input-form .search-input {
@@ -57,6 +58,7 @@ ul.reset li {
 	position: relative;
 	float: right;
 	width: 30%;
+	padding: 10px;
 }
 
 .user ul {
@@ -93,11 +95,10 @@ ul.reset li {
 
 ul.autocomplete {
 	display: none;
-	width: 300px;
+	width: 250px;
 	padding: 10px;
 	position: absolute;
 	top: 50px;
-	left: 0;
 	background: #fff;
 	border: 1px solid #e4e4e4;
 	/* CSS3 */
@@ -187,18 +188,17 @@ a img {
 }
 
 .reg, .login {
-	width: 30%;
-	height: 30%;
-	position: fixed;
-  	top: 20%;
-  	left: 50%;
-  	bottom: 50%;
-  	margin-top: -125px;
-  	margin-left: -250px;
-  	z-index: 5;
-  	display: none;
-  	background-color: #ccc;
-    padding: 25px;
+	width: auto;
+    height: auto;
+    position: fixed;
+    top: 20%;
+    /* bottom: 50%; */
+    margin-top: -5%;
+    margin-left: 25%;
+    z-index: 5;
+    display: none;
+    background-color: #ccc;
+    padding: 10px;
 }
 
 .input-form-user {
